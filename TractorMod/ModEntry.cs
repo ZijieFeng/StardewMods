@@ -76,6 +76,9 @@ namespace Pathoschild.Stardew.TractorMod
         /// <summary>The tractor texture to apply.</summary>
         private Texture2D TractorTexture;
 
+        /// <summary>The buff icon texture.</summary>
+        private Texture2D BuffIconTexture;
+
         /// <summary>Whether the mod is enabled for the current farmhand.</summary>
         private bool IsEnabled = true;
 
@@ -94,7 +97,7 @@ namespace Pathoschild.Stardew.TractorMod
             I18n.Init(helper.Translation);
             this.TractorManagerImpl = new(() =>
             {
-                var manager = new TractorManager(this.Config, this.Keys, this.Helper.Reflection);
+                var manager = new TractorManager(this.Config, this.Keys, this.Helper.Reflection, () => this.BuffIconTexture);
                 this.UpdateConfigFor(manager);
                 return manager;
             });
@@ -214,7 +217,11 @@ namespace Pathoschild.Stardew.TractorMod
                 return;
 
             // reload textures
-            if (!this.TryGetTexture("tractor", out this.TractorTexture, out string error) || !this.TryGetTexture("garage", out this.GarageTexture, out error))
+            if (!this.TryGetTexture("tractor", out this.TractorTexture, out string error))
+                this.Monitor.Log(error, LogLevel.Error);
+            if (!this.TryGetTexture("garage", out this.GarageTexture, out error))
+                this.Monitor.Log(error, LogLevel.Error);
+            if (!this.TryGetTexture("buff_icon", out this.BuffIconTexture, out error))
                 this.Monitor.Log(error, LogLevel.Error);
 
             // init garages + tractors
