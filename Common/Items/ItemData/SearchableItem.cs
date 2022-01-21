@@ -19,8 +19,8 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
         /// <summary>Create an item instance.</summary>
         public Func<Item> CreateItem { get; }
 
-        /// <summary>The item's unique ID for its type.</summary>
-        public int ID { get; }
+        /// <summary>The unqualified item ID.</summary>
+        public string ID { get; }
 
         /// <summary>The item's default name.</summary>
         public string Name => this.Item.Name;
@@ -34,9 +34,9 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="type">The item type.</param>
-        /// <param name="id">The unique ID (if different from the item's parent sheet index).</param>
+        /// <param name="id">The unqualified item ID.</param>
         /// <param name="createItem">Create an item instance.</param>
-        public SearchableItem(ItemType type, int id, Func<SearchableItem, Item> createItem)
+        public SearchableItem(ItemType type, string id, Func<SearchableItem, Item> createItem)
         {
             this.Type = type;
             this.ID = id;
