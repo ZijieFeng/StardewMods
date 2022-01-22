@@ -174,7 +174,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework
         /// <param name="obj">The world object.</param>
         protected bool IsTwig(SObject obj)
         {
-            return obj?.ParentSheetIndex is 294 or 295;
+            return obj?.QualifiedItemID is "(O)294" or "(O)295";
         }
 
         /// <summary>Get whether a given object is a weed.</summary>
@@ -309,7 +309,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework
                 tool: tool,
                 toolRect: new Rectangle((int)useAt.X, (int)useAt.Y, Game1.tileSize, Game1.tileSize)
             );
-            if (animal == null || animal.toolUsedForHarvest.Value != tool.BaseName || animal.currentProduce.Value <= 0 || animal.age.Value < animal.ageWhenMature.Value)
+            if (animal == null || animal.toolUsedForHarvest.Value != tool.BaseName || !CommonHelper.IsItemId(animal.currentProduce.Value, allowZero: false) || animal.age.Value < animal.ageWhenMature.Value)
                 return null;
 
             return animal;
@@ -404,7 +404,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework
             if (random.NextDouble() < (this.FoundGoldenScythe.Value ? 0.75 : 0.5))
             {
                 if (Game1.getFarm().tryToAddHay(1) == 0) // returns number left
-                    Game1.addHUDMessage(new HUDMessage("Hay", HUDMessage.achievement_type, true, Color.LightGoldenrodYellow, new SObject(178, 1)));
+                    Game1.addHUDMessage(new HUDMessage("Hay", HUDMessage.achievement_type, true, Color.LightGoldenrodYellow, new SObject("178", 1)));
             }
 
             return true;

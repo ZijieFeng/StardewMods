@@ -138,10 +138,10 @@ namespace Pathoschild.Stardew.LookupAnything.Framework.Models
         /// <param name="item">The item to check.</param>
         /// <param name="id">The expected item ID.</param>
         /// <param name="type">The expected item type.</param>
-        private bool IsMatch(Item item, int id, ItemType type = ItemType.Object)
+        private bool IsMatch(Item item, string id, ItemType type = ItemType.Object)
         {
             return
-                item?.ParentSheetIndex == id
+                item?.QualifiedItemID == id
                 && item.GetItemType() == type;
         }
     }

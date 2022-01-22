@@ -121,13 +121,29 @@ namespace Pathoschild.Stardew.Common
                         : ItemType.Wallpaper;
 
                 case SObject obj:
-                    return obj.bigCraftable.Value
-                        ? ItemType.BigCraftable
-                        : ItemType.Object;
+                    return obj.GetItemQualifier() switch
+                    {
+                        "(O)" => ItemType.Object,
+                        "(BC)" => ItemType.BigCraftable,
+                        _ => ItemType.Unknown
+                    };
 
                 default:
                     return ItemType.Unknown;
             }
+        }
+
+        /// <summary>Get whether an item ID is non-empty, ignoring placeholder values like "-1".</summary>
+        /// <param name="itemId">The unqualified item ID to check.</param>
+        /// <param name="allowZero">Whether to allow zero as a valid ID.</param>
+        public static bool IsItemId(string itemId, bool allowZero = true)
+        {
+            return
+                !string.IsNullOrWhiteSpace(itemId)
+                && (
+                    !int.TryParse(itemId, out int id)
+                    || id >= (allowZero ? 0 : 1)
+                );
         }
 
         /****

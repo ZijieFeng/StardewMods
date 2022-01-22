@@ -174,7 +174,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                             Name = $"{item.Name} Wine",
                                             Price = item.Price * 3,
                                             preserve = { SObject.PreserveType.Wine },
-                                            preservedParentSheetIndex = { item.ParentSheetIndex.ToString() }
+                                            preservedParentSheetIndex = { item.ItemID }
                                         });
 
                                         // jelly
@@ -183,7 +183,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                             Name = $"{item.Name} Jelly",
                                             Price = 50 + item.Price * 2,
                                             preserve = { SObject.PreserveType.Jelly },
-                                            preservedParentSheetIndex = { item.ParentSheetIndex.ToString() }
+                                            preservedParentSheetIndex = { item.ItemID }
                                         });
                                         break;
 
@@ -195,7 +195,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                             Name = $"{item.Name} Juice",
                                             Price = (int)(item.Price * 2.25d),
                                             preserve = { SObject.PreserveType.Juice },
-                                            preservedParentSheetIndex = { item.ParentSheetIndex.ToString() }
+                                            preservedParentSheetIndex = { item.ItemID }
                                         });
 
                                         // pickled
@@ -204,7 +204,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                             Name = $"Pickled {item.Name}",
                                             Price = 50 + item.Price * 2,
                                             preserve = { SObject.PreserveType.Pickle },
-                                            preservedParentSheetIndex = { item.ParentSheetIndex.ToString() }
+                                            preservedParentSheetIndex = { item.ItemID }
                                         });
                                         break;
 
@@ -215,7 +215,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                             SObject honey = new SObject(Vector2.Zero, "340", $"{item.Name} Honey", false, true, false, false)
                                             {
                                                 Name = $"{item.Name} Honey",
-                                                preservedParentSheetIndex = { item.ParentSheetIndex.ToString() }
+                                                preservedParentSheetIndex = { item.ItemID }
                                             };
                                             honey.Price += item.Price * 2;
                                             return honey;
@@ -223,7 +223,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                         break;
 
                                     // roe and aged roe (derived from FishPond.GetFishProduce)
-                                    case SObject.sellAtFishShopCategory when item.ParentSheetIndex == 812:
+                                    case SObject.sellAtFishShopCategory when item.QualifiedItemID == "(O)812":
                                         {
                                             this.GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags);
 
@@ -248,7 +248,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                                     {
                                                         name = $"{input.Name} Roe",
                                                         preserve = { Value = SObject.PreserveType.Roe },
-                                                        preservedParentSheetIndex = { Value = input.ParentSheetIndex.ToString() }
+                                                        preservedParentSheetIndex = { Value = input.ItemID }
                                                     };
                                                     roe.Price += input.Price / 2;
                                                     return roe;
@@ -262,7 +262,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
                                                         name = $"Aged {input.Name} Roe",
                                                         Category = -27,
                                                         preserve = { Value = SObject.PreserveType.AgedRoe },
-                                                        preservedParentSheetIndex = { Value = input.ParentSheetIndex.ToString() },
+                                                        preservedParentSheetIndex = { Value = input.ItemID },
                                                         Price = roe.Price * 2
                                                     });
                                                 }
@@ -356,7 +356,7 @@ namespace Pathoschild.Stardew.Common.Items.ItemData
         /// <remarks>Derived from <see cref="StardewValley.Buildings.FishPond.GetFishProduce"/>.</remarks>
         private Color GetRoeColor(SObject fish)
         {
-            return fish.ParentSheetIndex == 698 // sturgeon
+            return fish.QualifiedItemID == "(O)698" // sturgeon
                 ? new Color(61, 55, 42)
                 : (TailoringMenu.GetDyeColor(fish) ?? Color.Orange);
         }

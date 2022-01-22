@@ -14,8 +14,8 @@ namespace Pathoschild.Stardew.Common
         ** Public methods
         *********/
         /// <summary>Get the translated name for a big craftable object.</summary>
-        /// <param name="id">The big craftable's ID.</param>
-        public static string GetBigCraftableName(int id)
+        /// <param name="id">The big craftable's unqualified ID.</param>
+        public static string GetBigCraftableName(string id)
         {
             if (Game1.bigCraftablesInformation == null)
                 return "(missing translation: game hasn't loaded bigcraftable data yet)";
@@ -51,8 +51,8 @@ namespace Pathoschild.Stardew.Common
         }
 
         /// <summary>Get the translated name for an object.</summary>
-        /// <param name="id">The object ID.</param>
-        public static string GetObjectName(int id)
+        /// <param name="id">The object's unqualified ID.</param>
+        public static string GetObjectName(string id)
         {
             if (Game1.objectInformation == null)
                 return "(missing translation: game hasn't loaded object data yet)";

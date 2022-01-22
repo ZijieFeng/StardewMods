@@ -20,7 +20,7 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
         ** Fields
         *********/
         /// <summary>The items to drop.</summary>
-        private readonly Cached<Stack<int>> ItemDrops;
+        private readonly Cached<Stack<string>> ItemDrops;
 
 
         /*********
@@ -33,9 +33,9 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
         public TreeMachine(Tree tree, GameLocation location, Vector2 tile)
             : base(tree, location, BaseMachine.GetTileAreaFor(tile))
         {
-            this.ItemDrops = new Cached<Stack<int>>(
+            this.ItemDrops = new Cached<Stack<string>>(
                 getCacheKey: () => $"{Game1.currentSeason},{Game1.dayOfMonth},{tree.hasSeed.Value}",
-                fetchNew: () => new Stack<int>()
+                fetchNew: () => new Stack<string>()
             );
         }
 
@@ -60,7 +60,7 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
             if (!drops.Any())
             {
                 drops.Push(TreeMachine.GetSeedForTree(tree, this.Location)); // must be last item dropped, since collecting the seed will reset the stack
-                foreach (int itemId in this.GetRandomExtraDrops())
+                foreach (string itemId in this.GetRandomExtraDrops())
                     drops.Push(itemId);
             }
 
@@ -94,11 +94,11 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
         {
             var tree = this.Machine;
 
-            if (item.ParentSheetIndex == TreeMachine.GetSeedForTree(tree, this.Location))
+            if (item.ItemID == TreeMachine.GetSeedForTree(tree, this.Location))
                 tree.hasSeed.Value = false;
 
             var drops = this.ItemDrops.Value;
-            if (drops.Any() && drops.Peek() == item.ParentSheetIndex)
+            if (drops.Any() && drops.Peek() == item.ItemID)
                 drops.Pop();
         }
 
@@ -111,18 +111,18 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
         }
 
         /// <summary>Get the random items that should also drop when this tree has a seed.</summary>
-        private IEnumerable<int> GetRandomExtraDrops()
+        private IEnumerable<string> GetRandomExtraDrops()
         {
             Tree tree = this.Machine;
             string type = tree.treeType.Value;
 
             // golden coconut
             if ((type == TreeType.Palm || type == TreeType.Palm2) && this.Location is IslandLocation && new Random((int)Game1.uniqueIDForThisGame + (int)Game1.stats.DaysPlayed + this.TileArea.X * 13 + this.TileArea.Y * 54).NextDouble() < 0.1)
-                yield return 791;
+                yield return "791";
 
             // Qi bean
             if (Game1.random.NextDouble() <= 0.5 && Game1.player.team.SpecialOrderRuleActive("DROP_QI_BEANS"))
-                yield return 890;
+                yield return "890";
 
         }
 
@@ -130,13 +130,13 @@ namespace Pathoschild.Stardew.Automate.Framework.Machines.TerrainFeatures
         /// <param name="tree">The tree instance.</param>
         /// <param name="location">The location containing the tree.</param>
         /// <remarks>Derived from <see cref="Tree.shake"/>.</remarks>
-        private static int? GetSeedForTree(Tree tree, GameLocation location)
+        private static string GetSeedForTree(Tree tree, GameLocation location)
         {
             WildTreeData data = tree.GetWildTreeData();
 
-            int? seed = data?.SeedItemID;
-            if (Game1.GetSeasonForLocation(location) == "fall" && seed == 309/*acorn*/ && Game1.dayOfMonth >= 14)
-                seed = 408;/*hazelnut*/
+            string seed = data?.SeedItemID;
+            if (Game1.GetSeasonForLocation(location) == "fall" && seed == "309"/*acorn*/ && Game1.dayOfMonth >= 14)
+                seed = "408";/*hazelnut*/
 
             return seed;
         }
