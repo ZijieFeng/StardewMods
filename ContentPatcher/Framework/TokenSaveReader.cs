@@ -325,7 +325,7 @@ namespace ContentPatcher.Framework
             if (player == null)
                 yield break;
 
-            if (player.eventsSeen.Contains(2120303))
+            if (player.eventsSeen.Contains("2120303"))
                 yield return WalletItem.BearsKnowledge.ToString();
             if (player.hasClubCard)
                 yield return WalletItem.ClubCard.ToString();
@@ -345,7 +345,7 @@ namespace ContentPatcher.Framework
                 yield return WalletItem.SkullKey.ToString();
             if (player.hasSpecialCharm)
                 yield return WalletItem.SpecialCharm.ToString();
-            if (player.eventsSeen.Contains(3910979))
+            if (player.eventsSeen.Contains("3910979"))
                 yield return WalletItem.SpringOnionMastery.ToString();
         }
 

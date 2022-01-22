@@ -66,7 +66,7 @@ namespace Pathoschild.Stardew.LookupAnything.Framework.Lookups.Tiles
                     yield return new GenericField(I18n.Tile_TileIndex(layerName: layerName), this.Stringify(tile.TileIndex));
                     yield return new GenericField(I18n.Tile_Tilesheet(layerName: layerName), tile.TileSheet.ImageSource.Replace("\\", ": ").Replace("/", ": "));
                     yield return new GenericField(I18n.Tile_BlendMode(layerName: layerName), this.Stringify(tile.BlendMode));
-                    foreach (KeyValuePair<string, PropertyValue> property in tile.TileIndexProperties)
+                    foreach (KeyValuePair<string, PropertyValue> property in tile.TileIndexProperties.GetCollection())
                         yield return new GenericField(I18n.Tile_IndexProperty(layerName: layerName, propertyName: property.Key), property.Value);
                     foreach (KeyValuePair<string, PropertyValue> property in tile.Properties)
                         yield return new GenericField(I18n.Tile_TileProperty(layerName: layerName, propertyName: property.Key), property.Value);
