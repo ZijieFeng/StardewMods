@@ -1,6 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated for Stardew Valley 1.6.
+* Added custom buff icon + name.
+
 ## 4.14.10
 Released 14 January 2021 for SMAPI 3.13.0 or later.
 

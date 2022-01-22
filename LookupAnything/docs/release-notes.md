@@ -2,6 +2,8 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.6.
+* Added more seed info for tree lookups.
 * Fixed item lookups no longer showing construction recipes.
 
 ## 1.36.2
