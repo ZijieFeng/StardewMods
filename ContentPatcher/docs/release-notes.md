@@ -11,6 +11,7 @@ When releasing a format change, don't forget to update the smapi.io/json schema!
 -->
 ## Upcoming release
 * Updated for Stardew Valley 1.6.
+* The `Format` field now ignores the third number, so `1.24.3` is equivalent to `1.24.0` instead of showing an error.
 
 ## 1.24.8
 Released 14 January 2021 for SMAPI 3.13.0 or later.
